@@ -1,66 +1,63 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 
-class PostsForm extends React.Component {
+const PostsForm = () => {
 
-    state = {
+    const [formState, setFormState] = useState({
         titulo: '',
         cuerpo: ''
-    };
+    });
 
-    handleInputChange = ({target}) => {
+    const { titulo, cuerpo } = formState;
+    
+
+    const handleInputChange = ({target}) => {
         
-        this.setState({
-            ...this.state,
+        setFormState({
+            ...setFormState,
             [target.name]: target.value
         });
     };
 
-    handleClick = (e) => {
+    const handleClick = (e) => {
         console.log('click en guardar');
     };
 
-    handleSubmit = (e) => {
-        e.preventDefault();
-        console.log('detener submit');
-        console.log(this.state);
-    };
+    
 
-    render() {
         return (
             <>
             <div className="container">
                 <h2>
                     Nuevo POST
                 </h2>
-                <form onSubmit={this.handleSubmit}>
+                <form >
                 <div className="mb-3">
                     <label htmlFor="titulo" className="form-label">Titulo</label>
                     <input 
-                        onChange={this.handleInputChange} 
+                        value={titulo}
+                        onChange={handleInputChange} 
                         name="titulo" type="text" 
                         className="form-control" 
                         id="titulo" 
                         placeholder="Titulo del Posts"
-                        value={this.state.titulo}
                     />
                 </div>
                 <div className="mb-3">
                     <label htmlFor="cuerpo" className="form-label">Texto del Posts</label>
                     <textarea 
-                        onChange={this.handleInputChange} 
+                        value={cuerpo}
+                        onChange={handleInputChange} 
                         name="cuerpo" 
                         className="form-control" 
                         id="cuerpo" rows="3"
-                        value={this.state.cuerpo}
                     ></textarea>
                 </div>
-                <button onClick={this.handleClick} className="btn btn-primary">Guardar</button>
+                <button onClick={handleClick} className="btn btn-primary">Guardar</button>
                 </form>
             </div>
             </>
         )
-    }
 }
 
 
